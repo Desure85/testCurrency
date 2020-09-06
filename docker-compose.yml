@@ -1,0 +1,86 @@
+version: "3"
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    sysctls:
+      net.core.somaxconn: "65535"
+      net.ipv4.tcp_syncookies: 0
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    restart: unless-stopped
+    depends_on:
+      - php
+    volumes:
+      - ./src:/www
+      - ./docker/nginx/conf.dbasic:/etc/nginx/conf.d # - basic
+    ports:
+      - 80:80
+      - 8080:8080
+      - 443:443
+      - 45998:45998
+      - 34569:34569
+    networks:
+      - web
+  php:
+    build:
+      context: ./docker/php/
+      dockerfile: build/7.4/Dockerfile
+    container_name: php
+    sysctls:
+      net.core.somaxconn: "65535"
+      net.ipv4.tcp_syncookies: 0
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    restart: unless-stopped
+    volumes:
+      - ./src:/www
+      - ./docker/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+    working_dir: /www
+    ports:
+      - 9000:9000
+      - 25:25
+      - 110:110
+    depends_on:
+      - mysql
+    networks:
+      - web
+  mysql:
+    container_name: sid_mysql
+    image: bitnami/mariadb:10.4
+    sysctls:
+      net.core.somaxconn: "65535"
+      net.ipv4.tcp_syncookies: 0
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    restart: unless-stopped
+    volumes:
+      - ./docker/db/mysql:/bitnami/mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: toor
+      MARIADB_ROOT_USER: root
+      MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+      MARIADB_EXTRA_FLAGS:
+        --max-connect-errors=1000
+        --max_connections=1000
+        --wait_timeout=600
+        --interactive_timeout=600
+      MARIADB_DATABASE: test
+    ports:
+      - 3306:3306
+    networks:
+      - web
+networks:
+  web:
+    driver: bridge
+    ipam:
+      driver: default
