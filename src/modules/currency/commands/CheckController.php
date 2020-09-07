@@ -2,7 +2,7 @@
 
 namespace app\modules\currency\commands;
 
-use app\components\request\CRBRequest;
+use app\components\request\CBRRequest;
 use app\components\request\RequestFetch;
 use app\modules\currency\models\Currency;
 use yii\console\Controller;
@@ -12,7 +12,7 @@ class CheckController extends Controller
 {
     public function actionIndex()
     {
-        $request = new RequestFetch(new CRBRequest());
+        $request = new RequestFetch(new CBRRequest());
         while ($data = $request->fetch()) {
             $currency = Currency::find()
                 ->where(['name' => $data->getName()])->one();

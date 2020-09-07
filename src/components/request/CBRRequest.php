@@ -5,7 +5,7 @@ namespace app\components\request;
 use Guzzle\Http\Client;
 use GuzzleHttp\Psr7\Request;
 
-class CRBRequest implements IDataRequest
+class CBRRequest implements IDataRequest
 {
     private const URL = 'http://www.cbr.ru/scripts/XML_daily.asp';
 
