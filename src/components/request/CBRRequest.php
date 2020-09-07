@@ -3,7 +3,6 @@
 namespace app\components\request;
 
 use Guzzle\Http\Client;
-use GuzzleHttp\Psr7\Request;
 
 class CBRRequest implements IDataRequest
 {
