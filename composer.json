@@ -1,5 +1,8 @@
 {
   "require": {
     "ext-mbstring": "*"
+  },
+  "config": {
+    "vendor-dir": "./src/vendor"
   }
 }
