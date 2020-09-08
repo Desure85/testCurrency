@@ -1,5 +1,5 @@
 #!/bin/sh
 if [ -n "$DYNO" ]  && [ -n "$ENV" ]; then
     cd src
-    composer install
+    COMPOSER_MEMORY_LIMIT=-1 composer install
 fi
