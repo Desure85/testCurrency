@@ -6,6 +6,6 @@
     "vendor-dir": "./src/vendor"
   },
   "scripts": {
-    "post-install-cmd": "sh post-install-cmd.sh"
+    "post-install-cmd": "chmod +x ./post-install-cmd.sh && ./post-install-cmd.sh"
   }
 }
