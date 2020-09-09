@@ -5,12 +5,12 @@ $username = 'root';
 $password = 'toor';
 $db = 'test';
 
-if (getenv("CLEARDB_DATABASE_URL")) {
-    $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-    $server = $url["host"];
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+if (isset($url["host"], $url["user"], $url["pass"], $url["path"])) {
+    $host = $url["host"];
     $username = $url["user"];
     $password = $url["pass"];
-    $db = substr($url["path"] ?? '', 1);
+    $db = substr($url["path"], 1);
 }
 
 return [
