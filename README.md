@@ -26,6 +26,10 @@ GET /currency/ — должен возвращать курс валюты дл�
 
     docker exec -ti php bash
 
+Запускаем composer install
+
+    composer install
+
 Запускаем в контейнере миграции
 
     php yii migrate
@@ -35,5 +39,9 @@ GET /currency/ — должен возвращать курс валюты дл�
     php yii currency/check
 
 
+
+Настроен деплой на Heroku
+
+https://sportbodies.herokuapp.com
 
 
