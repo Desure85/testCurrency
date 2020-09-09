@@ -1,6 +1,6 @@
 <?php
 
-$server = 'mysql';
+$host = 'mysql';
 $username = 'root';
 $password = 'toor';
 $db = 'test';
@@ -15,7 +15,7 @@ if (isset($url["host"], $url["user"], $url["pass"], $url["path"])) {
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=' . $server . ';dbname=' . $db,
+    'dsn' => 'mysql:host=' . $host . ';dbname=' . $db,
     'username' => $username,
     'password' => $password,
     'charset' => 'utf8',
