@@ -1,6 +1,19 @@
 {
   "require": {
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "ext-apcu": "*",
+    "ext-curl": "*",
+    "ext-bcmath": "*",
+    "ext-dom": "*",
+    "ext-gd": "*",
+    "ext-zlib": "*",
+    "ext-imagick": "*",
+    "ext-json": "*",
+    "ext-simplexml": "*",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "ext-mysqli": "*",
+    "ext-pcntl": "*"
   },
   "config": {
     "vendor-dir": "./src/vendor"
