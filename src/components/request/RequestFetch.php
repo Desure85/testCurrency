@@ -4,7 +4,7 @@ namespace app\components\request;
 
 use function count;
 
-class RequestFetch
+class RequestFetch implements \Iterator, \Countable
 {
     private $data;
     private $iterator = 0;
@@ -14,27 +14,33 @@ class RequestFetch
         $this->data = $request->request() ?? [];
     }
 
-    public function fetchAll(): array
+    public function next(): ?CurrencyData
     {
-        return $this->data;
+        return $this->data[++$this->iterator] ?? null;
     }
 
-    public function fetch(): ?CurrencyData
-    {
-        return $this->data[$this->iterator++] ?? null;
-    }
-
-    public function goStart(): void
+    public function rewind(): void
     {
         $this->iterator = 0;
     }
 
-    public function goTo(int $offset): void
+    public function current(): ?CurrencyData
     {
-        $this->iterator = $offset;
+        return $this->data[$this->iterator] ?? null;
     }
 
-    public function getCount(): int
+
+    public function key(): int
+    {
+        return $this->iterator;
+    }
+
+    public function valid(): bool
+    {
+        return isset($this->data[$this->iterator]);
+    }
+
+    public function count(): int
     {
         return count($this->data);
     }

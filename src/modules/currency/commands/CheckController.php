@@ -13,8 +13,8 @@ class CheckController extends Controller
     public function actionIndex(): int
     {
         $request = new RequestFetch(new CBRRequest());
-        while ($data = $request->fetch()) {
-            CurrencyService::upsert($data);
+        foreach ($request as $currencyData) {
+            CurrencyService::upsert($currencyData);
         }
         return ExitCode::OK;
     }
