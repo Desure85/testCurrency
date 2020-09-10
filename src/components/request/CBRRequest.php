@@ -2,7 +2,7 @@
 
 namespace app\components\request;
 
-use Guzzle\Http\Client;
+use app\components\http\Client;
 
 class CBRRequest implements IDataRequest
 {
@@ -10,11 +10,9 @@ class CBRRequest implements IDataRequest
 
     public function request(): array
     {
-        $client = new Client();
-        $res = $client->get(self::URL);
-        $response = $res->send();
-        if ($response->getStatusCode() === 200) {
-            return $this->fill($response->getBody(true));
+        $response = (new Client())->get(self::URL);
+        if ($response !== null && $response->getStatusCode() === 200) {
+            return $this->fill($response->getBody());
         }
         return  [];
     }

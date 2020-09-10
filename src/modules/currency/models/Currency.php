@@ -14,7 +14,7 @@ use yii\db\Expression;
  * @property float|null $rate
  * @property int|null $insert_dt
  */
-class Currency extends \yii\db\ActiveRecord
+class Currency extends ActiveRecord
 {
     /**
      * {@inheritdoc}
