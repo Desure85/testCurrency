@@ -2,13 +2,14 @@
 
 namespace app\modules\currency\services;
 
+use app\components\request\CurrencyData;
 use app\modules\currency\models\Currency;
 
 class CurrencyService
 {
     private const MODEL = Currency::class;
 
-    public static function upsert($data)
+    public static function upsert(CurrencyData $data): bool
     {
         $currency = (self::MODEL)::find()
             ->where(['name' => $data->getName()])->one();
@@ -19,6 +20,6 @@ class CurrencyService
             $currency->name = $data->getName();
             $currency->rate = $data->getRate();
         }
-        $currency->save();
+        return $currency->save();
     }
 }
