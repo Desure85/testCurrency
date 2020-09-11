@@ -1,5 +1,6 @@
 {
   "name": "desure85/test_urrency",
+  "description": "test repo",
   "license": "MIT",
   "require": {
     "ext-mbstring": "*",
