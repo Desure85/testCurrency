@@ -39,12 +39,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Init mysql
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        mysql database: 'test'
-        mysql root password: 'toor'
-    
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
