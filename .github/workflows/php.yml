@@ -8,11 +8,11 @@ on:
     
 jobs:
   build:
-   
     runs-on: ubuntu-latest
+    container: bitnami/mariadb
     services:
       mysql:
-        image: bitnami/mariadb:10.4
+        image: debian:latest
         env:
           MARIADB_ROOT_PASSWORD: toor
           MARIADB_ROOT_USER: root
