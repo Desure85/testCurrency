@@ -1,5 +1,5 @@
 {
-  "name": "testCurrency",
+  "name": "desure85/testCurrency",
   "license": "MIT",
   "require": {
     "ext-mbstring": "*",
