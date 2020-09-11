@@ -1,4 +1,5 @@
 {
+  "name": "testCurrency",
   "license": "MIT",
   "require": {
     "ext-mbstring": "*",
