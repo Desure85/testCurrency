@@ -27,6 +27,10 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
+      uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: 'test'
+          mysql root password: 'toor'
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
 
