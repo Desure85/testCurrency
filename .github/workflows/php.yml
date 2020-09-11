@@ -5,12 +5,25 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+    
 jobs:
   build:
-
+   
     runs-on: ubuntu-latest
-
+    services:
+      mysql:
+        image: bitnami/mariadb:10.4
+        env:
+          MARIADB_ROOT_PASSWORD: toor
+          MARIADB_ROOT_USER: root
+          MYSQL_AUTHENTICATION_PLUGIN: mysql_native_password
+          MARIADB_EXTRA_FLAGS:
+            --max-connect-errors=1000
+            --max_connections=1000
+            --wait_timeout=600
+            --interactive_timeout=600
+          MARIADB_DATABASE: test
+       
     steps:
     - uses: actions/checkout@v2
       
