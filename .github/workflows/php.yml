@@ -26,12 +26,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
+    - name: Init mysql
       uses: mirromutth/mysql-action@v1.1
       with:
         mysql database: 'test'
         mysql root password: 'toor'
+    
+    - name: Install dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
