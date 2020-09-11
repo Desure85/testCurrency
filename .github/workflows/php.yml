@@ -18,7 +18,7 @@ jobs:
       run: cd src
       
     - name: Validate composer.json and composer.lock
-      run: composer validate
+      run: ls && composer validate
 
     - name: Cache Composer packages
       id: composer-cache
