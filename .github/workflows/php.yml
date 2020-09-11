@@ -13,12 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Go src dir
-      run: cd src
       
     - name: Validate composer.json and composer.lock
-      run: ls && composer validate
+      run: cd src && composer validate
 
     - name: Cache Composer packages
       id: composer-cache
