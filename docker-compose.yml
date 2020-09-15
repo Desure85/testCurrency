@@ -26,9 +26,7 @@ services:
     networks:
       - web
   php:
-    build:
-      context: ./docker/php/
-      dockerfile: build/7.4/Dockerfile
+    image: desure85/php
     container_name: php
     sysctls:
       net.core.somaxconn: "65535"
