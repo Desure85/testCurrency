@@ -21,6 +21,7 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 'currencies' => 'currency/default/index',
+                'wh/<uri:.+>' => 'webhook/default/trap',
                 '<module:\w+>' => '<module>',
                 'currency/<id:\d+>' => 'currency/default/view',
                 '/' => 'site/index',
@@ -55,6 +56,9 @@ $config = [
     'modules' => [
         'currency' => [
             'class' => 'app\modules\currency\BaseModule',
+        ],
+        'webhook' => [
+            'class' => 'app\modules\webhookTrap\Module',
         ],
     ],
     'params' => $params,
