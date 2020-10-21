@@ -8,7 +8,7 @@
             [
                 'attribute' => 'body',
                 'value' => static function ($model) {
-                    return urldecode($model->body);
+                    return '<pre>' . urldecode($model->body) . '</pre>';
                 }
             ],
             [

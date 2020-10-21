@@ -109,7 +109,7 @@ class DefaultController extends Controller
             $hookLog = new WebhookLog();
             $hookLog->created_at = \time();
             $hookLog->headers = \json_encode(Yii::$app->request->headers->toArray(), JSON_UNESCAPED_UNICODE);
-            $hookLog->body = Yii::$app->request->getRawBody() ?? \json_encode((Yii::$app->request->getBodyParams()), JSON_UNESCAPED_UNICODE);
+            $hookLog->body = \json_encode((Yii::$app->request->post()), JSON_UNESCAPED_UNICODE);
             $hookLog->webhook_id = $hook->id;
             $hookLog->save();
         } else {
