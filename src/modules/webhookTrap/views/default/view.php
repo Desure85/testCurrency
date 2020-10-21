@@ -5,7 +5,12 @@
         'columns' => [
             'id',
             'created_at:date',
-            'body',
+            [
+                'attribute' => 'body',
+                'value' => static function ($model) {
+                    return urldecode($model->body);
+                }
+            ],
             [
                 'class' => \yii\grid\ActionColumn::class,
                 'template' => '{view-log}',
