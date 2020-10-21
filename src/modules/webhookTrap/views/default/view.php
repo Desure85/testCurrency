@@ -7,7 +7,7 @@
             'created_at:date',
             [
                 'attribute' => 'body',
-                'format' => 'raw',
+                'format' => 'html',
                 'value' => static function ($model) {
                     return '<pre>' . urldecode($model->body) . '</pre>';
                 }
