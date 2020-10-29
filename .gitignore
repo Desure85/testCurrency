@@ -1,3 +1,4 @@
-/docker/db/
+docker/db/
 .idea
-/docker/report/*
+docker/report
+vendor/*
