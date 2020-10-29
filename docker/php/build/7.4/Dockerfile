@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng-dev \
         libpq-dev \
+        libxml2-dev \
         libonig-dev \
         libpng-dev \
         libmagickwand-dev --no-install-recommends \
@@ -43,13 +44,12 @@ RUN docker-php-ext-configure mbstring && \
     --with-jpeg=/usr/include/ && \
     docker-php-ext-configure pgsql --with-pgsql=/usr/local/pgsql
 
-RUN docker-php-ext-install zip \
+RUN docker-php-ext-install gd zip \
     opcache \
     pdo_mysql \
     pdo_pgsql\
     bcmath \
-    intl \
-    gd
+    intl
 
 RUN pecl install -o redis \
     apcu \
@@ -61,23 +61,28 @@ RUN pecl install -o redis \
     rdkafka && \
     rm -rf /tmp/pear
 
-COPY /ini/redis.ini /usr/local/etc/php/conf.d/
-COPY /ini/rdkafka.ini /usr/local/etc/php/conf.d/
-COPY /ini/apcu.ini /usr/local/etc/php/conf.d/
-COPY /ini/mongodb.ini /usr/local/etc/php/conf.d/
-COPY /ini/imagick.ini /usr/local/etc/php/conf.d/
-COPY /ini/msgpack.ini /usr/local/etc/php/conf.d/
-COPY /ini/memcached.ini /usr/local/etc/php/conf.d/
-COPY /ini/pcov.ini /usr/local/etc/php/conf.d/
-COPY /ini/settings.ini /usr/local/etc/php/conf.d/
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "phpstan/phpstan" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "composer/semver:^1.4" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "squizlabs/php_codesniffer" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "phpmd/phpmd" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "symplify/easy-coding-standard" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "rector/rector" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "vimeo/psalm" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "phpmetrics/phpmetrics" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "wapmorgan/php-code-fixer" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "bmitch/churn-php" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "dephpend/dephpend" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "povils/phpmnd" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "phpunit/phpunit:^9" \
+ && composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "nunomaduro/phpinsights"
 
-RUN composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "fxp/composer-asset-plugin:~1.0"
-RUN composer global require --prefer-dist --no-interaction --optimize-autoloader --apcu-autoloader "hirak/prestissimo"
-
+RUN wget -P /root/.composer/vendor/bin https://phar.phpunit.de/phploc.phar
+RUN wget -P /root/.composer/vendor/bin https://phar.phpunit.de/phpcpd.phar
+ENV PATH "$PATH:/root/.composer/vendor/bin"
 RUN mkdir /var/log/php-fpm && ln -sf /dev/stdout /var/log/php-fpm/access.log && ln -sf /dev/stderr /var/log/php-fpm/error.log
 CMD ["php-fpm"]
 

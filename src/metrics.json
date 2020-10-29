@@ -1,0 +1,20 @@
+{
+  "includes": [
+    "./"
+  ],
+  "exclude": [
+    "tests",
+    "vendor",
+    "web",
+    "runtime"
+  ],
+  "report": {
+    "html": "docker/report/"
+  },
+  "plugins": {
+    "git": {
+      "binary": "git"
+    }
+  },
+  "extensions": ["php"]
+}

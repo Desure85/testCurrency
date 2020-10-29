@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<psalm
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        name="Psalm for Psalm"
+        useDocblockTypes="true"
+        errorLevel="6"
+        strictBinaryOperands="false"
+        rememberPropertyAssignmentsAfterCall="true"
+        checkForThrowsDocblock="false"
+        throwExceptionOnError="0"
+        findUnusedCode="true"
+        ensureArrayStringOffsetsExist="true"
+        ensureArrayIntOffsetsExist="false"
+        resolveFromConfigFile="true"
+>
+    <projectFiles>
+        <directory name="./"/>
+        <ignoreFiles>
+            <directory name="runtime"/>
+            <directory name="web"/>
+            <directory name="vendor"/>
+            <directory name="tests"/>
+        </ignoreFiles>
+    </projectFiles>
+</psalm>

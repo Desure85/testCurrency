@@ -18,15 +18,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::EXCLUDE_PATHS, [
         __DIR__ . '/src/runtime',
         __DIR__ . '/src/web',
-        __DIR__ . '/src/vendor',
-        __DIR__ . '/src/tests',
         __DIR__ . '/vendor'
     ]);
 
     $parameters->set(Option::SETS, [
         SetList::TYPE_DECLARATION,
         SetList::SOLID,
-        SetList::PHP_71,
+        SetList::PHP_74,
         SetList::PRIVATIZATION,
         SetList::PERFORMANCE,
         SetList::CODING_STYLE_ADVANCED,
